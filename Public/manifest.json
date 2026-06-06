@@ -1,0 +1,8 @@
+{
+  "short_name": "InvestBot",
+  "name": "InvestBot - Smart Investment",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0a1a0a",
+  "background_color": "#0a1a0a"
+}
