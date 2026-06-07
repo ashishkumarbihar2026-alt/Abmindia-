@@ -29,7 +29,12 @@ const TELEGRAM_CHAT_ID = "-5202050403";
 
 const plans = [
   { id: 1, invest: 100, returns: 200, label: "Starter", icon: "🌱", color: "#f6c90e" },
-  {const disclaimer = `Investment Disclaimer: Investments are subject to market risks. Before making any investment decision, carefully consider your financial situation, investment objectives, and risk tolerance. Past performance is not indicative of future results.`;
+  { id: 2, invest: 200, returns: 400, label: "Growth", icon: "📈", color: "#4caf50" },
+  { id: 3, invest: 500, returns: 900, label: "Pro", icon: "💎", color: "#00bcd4" },
+  { id: 4, invest: 1000, returns: 2100, label: "Elite", icon: "🚀", color: "#ff9800" },
+];
+
+const disclaimer = `Investment Disclaimer: Investments are subject to market risks. Before making any investment decision, carefully consider your financial situation, investment objectives, and risk tolerance. Past performance is not indicative of future results.`;
 
 async function sendTelegramNotification(message) {
   try {
