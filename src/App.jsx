@@ -91,11 +91,12 @@ function AuthPage() {
     setError("");
     setLoading(true);
     try {
-      await signInWithPopup(auth, googleProvider);
+      const { signInWithRedirect } = await import("firebase/auth");
+      await signInWithRedirect(auth, googleProvider);
     } catch (e) {
       setError("⚠️ Google login failed");
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
