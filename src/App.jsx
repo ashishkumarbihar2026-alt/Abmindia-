@@ -82,7 +82,7 @@ function AuthPage() {
                   e.code === "auth/wrong-password" ? "⚠️ Password galat hai" :
                   e.code === "auth/user-not-found" ? "⚠️ Email registered nahi hai" :
                   e.code === "auth/weak-password" ? "⚠️ Password 6+ characters ka hona chahiye" :
-                  "⚠️ Kuch galat hua, dobara try karo";
+                  e.message;
       setError(msg);
     }
     setLoading(false);
