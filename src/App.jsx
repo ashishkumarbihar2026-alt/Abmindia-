@@ -12,12 +12,13 @@ import {
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDyEHLHzCNJ1BxHXmqCOKbinJqrTIBC7Gw",
+  apiKey: "AIzaSyDyEHLHrCNJiBxHXmqCOKbinJqrTIBC7Gw",
   authDomain: "investapp-954d7.firebaseapp.com",
   projectId: "investapp-954d7",
   storageBucket: "investapp-954d7.firebasestorage.app",
-  messagingSenderId: "530020859885",
-  appId: "1:530020859885:web:5d1e0c6cd5220694d83974"
+  messagingSenderId: "530020859805",
+  appId: "1:530020859805:web:5d1a0c6cd5220694d83974",
+  measurementId: "G-NDJCETWWZW"
 };
 
 const app = initializeApp(firebaseConfig);
