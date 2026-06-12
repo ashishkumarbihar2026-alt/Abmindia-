@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
@@ -89,6 +90,18 @@ function AuthPage() {
     setLoading(false);
   }
 
+  async function handleForgotPassword() {
+    setError("");
+    if (!email) { setError("⚠️ Pehle email likhein"); return; }
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setError("✅ Reset link aapki email pe bhej diya gaya hai!");
+    } catch (e) {
+      setError("⚠️ Email nahi mila ya kuch galat hua");
+    }
+    setLoading(false);
+  }
   async function handleGoogle() {
     setError("");
     setLoading(true);
