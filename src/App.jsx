@@ -132,13 +132,16 @@ function AuthPage() {
         )}
         <input style={authStyles.input} placeholder="📧 Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <input style={authStyles.input} placeholder="🔒 Password (min 6)" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+{mode === "login" && (
+          <button style={authStyles.forgotBtn} onClick={handleForgotPassword}>Password bhool gaye?</button>
+        )}
         {error && <div style={authStyles.error}>{error}</div>}
         <button style={{ ...authStyles.btn, opacity: loading ? 0.7 : 1 }} onClick={handleEmailAuth} disabled={loading}>
           {loading ? "⏳ Please wait..." : mode === "login" ? "🔑 Login" : "📝 Register"}
         </button>
         <div style={authStyles.divider}><span>ya</span></div>
         <button style={{ ...authStyles.googleBtn, opacity: loading ? 0.7 : 1 }} onClick={handleGoogle} disabled={loading}>
-          <span style={{ fontSize: 18 }}>🔵</span> Google se Login Karo
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style={{ width: 20, height: 20 }} /> login to Google 
         </button>
       </div>
     </div>
