@@ -150,6 +150,8 @@ function AuthPage() {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [page, setPage] = useState("home");
+const [pMsg, setPMsg] = useState(null);
+const [pLoading, setPLoading] = useState(false);
   const [selected, setSelected] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -157,6 +159,17 @@ function AuthPage() {
   const [wAmount, setWAmount] = useState("");
   const [wPlan, setWPlan] = useState("");
   const [wInvestDate, setWInvestDate] = useState("");
+async function handleChangePassword() {
+  setPMsg(null);
+  setPLoading(true);
+  try {
+    await sendPasswordResetEmail(auth, user.email);
+    setPMsg({ type: "success", text: "✅ Password change link aapki email pe bhej diya gaya hai!" });
+  } catch (e) {
+    setPMsg({ type: "error", text: "⚠️ Kuch galat hua, dobara try karein" });
+  }
+  setPLoading(false);
+}
   const [wMsg, setWMsg] = useState(null);
   const [wLoading, setWLoading] = useState(false);
 
@@ -225,6 +238,73 @@ function AuthPage() {
       <div style={{ textAlign: "center", padding: "8px 0 0", fontSize: 12, color: "#888" }}>
         👋 {user.displayName || user.email}
       </div>
+{page === "profile" && (
+  <div style={{padding: "20px 16px", maxWidth: 400, margin: "0 auto"}}>
+    <div style={{
+      background: "rgba(255,255,255,0.05)",
+      border: "1px solid rgba(255,255,255,0.1)",
+      borderRadius: 16,
+      padding: 24,
+      textAlign: "center"
+    }}>
+      <div style={{fontSize: 48, marginBottom: 8}}>👤</div>
+      <div style={{fontSize: 18, fontWeight: "bold", color: "#fff"}}>
+        {user.displayName || "Investor"}
+      </div>
+      <div style={{fontSize: 14, color: "#aaa", marginTop: 4}}>
+        {user.email}
+      </div>
+      <div style={{fontSize: 12, color: "#666", marginTop: 8}}>
+        📅 Member since: {user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString("en-IN") : "N/A"}
+      </div>
+      <button
+        style={{
+          marginTop: 20,
+          width: "100%",
+          padding: "12px",
+          borderRadius: 10,
+          border: "none",
+          background: "linear-gradient(90deg,#FFD700,#4CAF50)",
+          color: "#000",
+          fontWeight: "bold",
+          fontSize: 15
+        }}
+        onClick={handleChangePassword}
+        disabled={pLoading}
+      >
+        {pLoading ? "⏳ Please wait..." : "🔑 Change Password"}
+      </button>
+      {pMsg && (
+        <div style={{
+          marginTop: 12,
+          padding: 10,
+          borderRadius: 8,
+          fontSize: 13,
+          color: pMsg.type === "error" ? "#f44336" : "#4caf50",
+          background: pMsg.type === "error" ? "rgba(244,67,54,0.1)" : "rgba(76,175,80,0.1)"
+        }}>
+          {pMsg.text}
+        </div>
+      )}
+      <button
+        style={{
+          marginTop: 12,
+          width: "100%",
+          padding: "12px",
+          borderRadius: 10,
+          border: "1px solid #f44336",
+          background: "transparent",
+          color: "#f44336",
+          fontWeight: "bold",
+          fontSize: 15
+        }}
+        onClick={() => signOut(auth)}
+      >
+        🚪 Logout
+      </button>
+    </div>
+  </div>
+)}
 
       {page === "home" && (
         <>
