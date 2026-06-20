@@ -9,6 +9,7 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  deleteUser
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
@@ -66,6 +67,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+const [autoRenew, setAutoRenew] = useState(() => localStorage.getItem("autoRenew") === "true");
   const [error, setError] = useState("");
 
   async function handleEmailAuth() {
