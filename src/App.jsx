@@ -219,6 +219,7 @@ function AuthPage() {
       <div style={styles.navBar}>
         <button style={{ ...styles.navBtn, ...(page === "home" ? styles.navActive : {}) }} onClick={() => setPage("home")}>🏠 Home</button>
         <button style={{ ...styles.navBtn, ...(page === "withdraw" ? styles.navActive : {}) }} onClick={() => setPage("withdraw")}>💸 Withdrawal</button>
+<button style={{...styles.navBtn, ...(page === "profile" ? styles.navActive : {})}} onClick={() => setPage("profile")}>👤 Profile</button>
         <button style={{ ...styles.navBtn, color: "#f44336" }} onClick={() => signOut(auth)}>🚪 Logout</button>
       </div>
       <div style={{ textAlign: "center", padding: "8px 0 0", fontSize: 12, color: "#888" }}>
