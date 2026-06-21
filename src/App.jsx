@@ -172,6 +172,25 @@ async function handleChangePassword() {
   }
   setPLoading(false);
 }
+function toggleAutoRenew() {
+  const newVal = !autoRenew;
+  setAutoRenew(newVal);
+  localStorage.setItem("autoRenew", newVal ? "true" : "false");
+}
+
+async function handleDeleteAccount() {
+  const sure = window.confirm("⚠️ Pakka account delete karna hai? Ye permanently delete ho jayega aur wapas nahi aayega.");
+  if (!sure) return;
+  try {
+    await deleteUser(auth.currentUser);
+  } catch (e) {
+    if (e.code === "auth/requires-recent-login") {
+      alert("Security ke liye pehle logout karke dobara login karo, fir account delete karo.");
+    } else {
+      alert("⚠️ Kuch galat hua: " + e.message);
+    }
+  }
+}
   const [wMsg, setWMsg] = useState(null);
   const [wLoading, setWLoading] = useState(false);
 
@@ -241,24 +260,25 @@ async function handleChangePassword() {
         👋 {user.displayName || user.email}
       </div>
 {page === "profile" && (
-  <div style={{padding: "20px 16px", maxWidth: 400, margin: "0 auto"}}>
+  <div style={{padding: "20px 16px", maxWidth: 400, margin: "0 auto", background: "#F8F9FA", minHeight: "100vh"}}>
     <div style={{
-      background: "rgba(255,255,255,0.05)",
-      border: "1px solid rgba(255,255,255,0.1)",
+      background: "#FFFFFF",
+      border: "1px solid #E0E0E0",
       borderRadius: 16,
       padding: 24,
       textAlign: "center"
     }}>
       <div style={{fontSize: 48, marginBottom: 8}}>👤</div>
-      <div style={{fontSize: 18, fontWeight: "bold", color: "#fff"}}>
+      <div style={{fontSize: 18, fontWeight: "bold", color: "#333333"}}>
         {user.displayName || "Investor"}
       </div>
-      <div style={{fontSize: 14, color: "#aaa", marginTop: 4}}>
+      <div style={{fontSize: 14, color: "#666666", marginTop: 4}}>
         {user.email}
       </div>
-      <div style={{fontSize: 12, color: "#666", marginTop: 8}}>
+      <div style={{fontSize: 12, color: "#999999", marginTop: 8}}>
         📅 Member since: {user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString("en-IN") : "N/A"}
       </div>
+
       <button
         style={{
           marginTop: 20,
@@ -266,8 +286,8 @@ async function handleChangePassword() {
           padding: "12px",
           borderRadius: 10,
           border: "none",
-          background: "linear-gradient(90deg,#FFD700,#4CAF50)",
-          color: "#000",
+          background: "#4CAF50",
+          color: "#fff",
           fontWeight: "bold",
           fontSize: 15
         }}
@@ -276,21 +296,94 @@ async function handleChangePassword() {
       >
         {pLoading ? "⏳ Please wait..." : "🔑 Change Password"}
       </button>
+
       {pMsg && (
         <div style={{
           marginTop: 12,
           padding: 10,
           borderRadius: 8,
           fontSize: 13,
-          color: pMsg.type === "error" ? "#f44336" : "#4caf50",
-          background: pMsg.type === "error" ? "rgba(244,67,54,0.1)" : "rgba(76,175,80,0.1)"
+          color: pMsg.type === "error" ? "#c62828" : "#2e7d32",
+          background: pMsg.type === "error" ? "#FDECEA" : "#E8F5E9"
         }}>
           {pMsg.text}
         </div>
       )}
+
+      <div style={{borderTop: "1px solid #EEEEEE", margin: "20px 0"}}></div>
+
+      <div style={{textAlign: "left"}}>
+        <div style={{fontSize: 13, color: "#999999", marginBottom: 8, fontWeight: "bold"}}>REFER & EARN</div>
+        <div style={{
+          background: "#F8F9FA",
+          borderRadius: 10,
+          padding: 12,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 16
+        }}>
+          <span style={{color: "#333333", fontSize: 14}}>🎁 {user.uid.slice(0, 8).toUpperCase()}</span>
+          <button
+            style={{padding: "6px 12px", borderRadius: 8, border: "none", background: "#4CAF50", color: "#fff", fontSize: 12, fontWeight: "bold"}}
+            onClick={() => { navigator.clipboard.writeText(`https://abmindia.vercel.app/?ref=${user.uid.slice(0,8)}`); alert("✅ Referral link copied!"); }}
+          >
+            Copy
+          </button>
+        </div>
+
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "12px 0",
+          borderTop: "1px solid #EEEEEE"
+        }}>
+          <span style={{color: "#333333", fontSize: 14}}>🔄 Auto-Renewal</span>
+          <div
+            onClick={toggleAutoRenew}
+            style={{
+              width: 44,
+              height: 24,
+              borderRadius: 12,
+              background: autoRenew ? "#4CAF50" : "#CCCCCC",
+              position: "relative",
+              cursor: "pointer"
+            }}
+          >
+            <div style={{
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              background: "#fff",
+              position: "absolute",
+              top: 2,
+              left: autoRenew ? 22 : 2,
+              transition: "left 0.2s"
+            }}></div>
+          </div>
+        </div>
+
+        <div style={{fontSize: 13, color: "#999999", margin: "16px 0 8px", fontWeight: "bold"}}>SUPPORT</div>
+
+        <button
+          style={{width: "100%", textAlign: "left", padding: "12px 0", border: "none", borderTop: "1px solid #EEEEEE", background: "transparent", color: "#333333", fontSize: 14}}
+          onClick={() => alert("📖 Help Center\n\n• Investment ek mahine baad return milta hai\n• Withdrawal sirf 1 month baad allowed hai\n• Koi bhi sawal ho to Contact Support use karo")}
+        >
+          📖 Help Center
+        </button>
+
+        <button
+          style={{width: "100%", textAlign: "left", padding: "12px 0", border: "none", borderTop: "1px solid #EEEEEE", background: "transparent", color: "#333333", fontSize: 14}}
+          onClick={() => window.open(TELEGRAM_GROUP_LINK, "_blank")}
+        >
+          💬 Contact Support
+        </button>
+      </div>
+
       <button
         style={{
-          marginTop: 12,
+          marginTop: 20,
           width: "100%",
           padding: "12px",
           borderRadius: 10,
@@ -303,6 +396,22 @@ async function handleChangePassword() {
         onClick={() => signOut(auth)}
       >
         🚪 Logout
+      </button>
+
+      <button
+        style={{
+          marginTop: 10,
+          width: "100%",
+          padding: "10px",
+          borderRadius: 10,
+          border: "none",
+          background: "transparent",
+          color: "#999999",
+          fontSize: 12
+        }}
+        onClick={handleDeleteAccount}
+      >
+        Delete Account
       </button>
     </div>
   </div>
