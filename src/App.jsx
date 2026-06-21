@@ -67,7 +67,6 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-const [autoRenew, setAutoRenew] = useState(() => localStorage.getItem("autoRenew") === "true");
   const [error, setError] = useState("");
 
   async function handleEmailAuth() {
@@ -152,6 +151,7 @@ const [autoRenew, setAutoRenew] = useState(() => localStorage.getItem("autoRenew
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [page, setPage] = useState("home");
+const [autoRenew, setAutoRenew] = useState(() => localStorage.getItem("autoRenew") === "true");
 const [pMsg, setPMsg] = useState(null);
 const [pLoading, setPLoading] = useState(false);
   const [selected, setSelected] = useState(null);
