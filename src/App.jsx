@@ -541,8 +541,11 @@ async function handleDeleteAccount() {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+@keyframes loginBoxIn {
+  from { opacity:0; transform:scale(0.8); }
+  to { opacity:1; transform:scale(1); }
+}
 `;
-
 const mq = {
   marqueeWrap: { overflow: "hidden", margin: "24px 0 0", background: "rgba(246,201,14,0.08)", borderTop: "1px solid rgba(246,201,14,0.2)", borderBottom: "1px solid rgba(246,201,14,0.2)", padding: "10px 0" },
   marqueeTrack: { display: "inline-block", animation: "marquee 18s linear infinite", whiteSpace: "nowrap" },
@@ -551,7 +554,7 @@ const mq = {
 
 const authStyles = {
   root: { minHeight: "100vh", background: "linear-gradient(135deg, #0a1a0a 0%, #0d2a0d 40%, #1a1a00 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 },
-  card: { background: "rgba(255,255,255,0.05)", borderRadius: 20, padding: "32px 24px", maxWidth: 360, width: "100%", border: "1px solid rgba(246,201,14,0.2)", backdropFilter: "blur(10px)", display: "flex", flexDirection: "column", gap: 12 },
+  card: { background: "rgba(255,255,255,0.08)", borderRadius: 30, padding: "40px 28px", maxWidth: 380, width: "100%", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(20px)", animation: "loginBoxIn 0.6s ease", display: "flex", flexDirection: "column", gap: 12 },
   logoRow: { display: "flex", alignItems: "center", gap: 10, justifyContent: "center" },
   logoText: { fontSize: 24, fontWeight: 800, background: "linear-gradient(90deg, #f6c90e, #4caf50)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" },
   tagline: { color: "#888", fontSize: 12, textAlign: "center", margin: "0 0 8px" },
@@ -560,7 +563,7 @@ const authStyles = {
   tabActive: { background: "rgba(246,201,14,0.15)", color: "#f6c90e" },
   input: { background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 10, padding: "12px 14px", color: "#fff", fontSize: 14, outline: "none", width: "100%", boxSizing: "border-box" },
   error: { background: "rgba(244,67,54,0.12)", border: "1px solid #f44336", borderRadius: 10, padding: "10px 14px", color: "#f44336", fontSize: 13, textAlign: "center" },
-  btn: { padding: "13px 0", borderRadius: 12, border: "none", background: "linear-gradient(90deg, #f6c90e, #4caf50)", color: "#000", fontWeight: 900, fontSize: 15, cursor: "pointer" },
+  btn: { padding: "14px 0", borderRadius: 12, border: "none", background: "linear-gradient(90deg, #00c6ff, #a855f7)", color: "#fff", fontWeight: 900, fontSize: 15, cursor: "pointer", width: "100%" },
   divider: { textAlign: "center", color: "#555", fontSize: 12 },
   googleBtn: { padding: "12px 0", borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.07)", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 },
 };
