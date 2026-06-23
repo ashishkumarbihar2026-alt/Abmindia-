@@ -50,7 +50,6 @@ async function sendTelegramNotification(message) {
   } catch (e) {}
 }
 
-// ─── CSS ANIMATIONS ───────────────────────────────────────────────────────────
 const cssAnim = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   * { box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
@@ -60,10 +59,7 @@ const cssAnim = `
   @keyframes float { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-20px) scale(1.03); } }
   @keyframes gradSpin { 0% { background-position:0% 50%; } 50% { background-position:100% 50%; } 100% { background-position:0% 50%; } }
   @keyframes shimmer { 0% { left:-100%; } 100% { left:100%; } }
-  @keyframes progressAnim { from { width:0%; } to { width:65%; } }
   @keyframes slideBar { 0% { background-position:0%; } 100% { background-position:200%; } }
-  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
-
   .nav-btn { transition: all 0.2s; }
   .nav-btn:active { transform: scale(0.95); }
   .plan-card-hover { transition: transform 0.2s, box-shadow 0.2s; }
@@ -74,7 +70,6 @@ const cssAnim = `
   select option { background: #0f2a15; color: #fff; }
 `;
 
-// ─── MARQUEE ──────────────────────────────────────────────────────────────────
 function TrustMarquee() {
   const text = "✅ 1,000,000+ Trusted People • 💰 Safe & Secure Investments • 🏆 #1 Investment Platform • 🌍 Worldwide Trusted • ";
   return (
@@ -86,7 +81,6 @@ function TrustMarquee() {
   );
 }
 
-// ─── AUTH PAGE ────────────────────────────────────────────────────────────────
 function AuthPage() {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
@@ -144,19 +138,14 @@ function AuthPage() {
   return (
     <div style={{ minHeight:"100vh", background:"linear-gradient(135deg,#060d0a 0%,#0a1f0e 50%,#060d0a 100%)", display:"flex", alignItems:"center", justifyContent:"center", padding:20, position:"relative", overflow:"hidden" }}>
       <style>{cssAnim}</style>
-      {/* BG orbs */}
       <div style={{ position:"fixed", top:-100, left:-80, width:350, height:350, borderRadius:"50%", background:"rgba(34,197,94,0.1)", filter:"blur(80px)", pointerEvents:"none", animation:"float 8s ease-in-out infinite" }} />
       <div style={{ position:"fixed", bottom:0, right:-60, width:280, height:280, borderRadius:"50%", background:"rgba(16,185,129,0.08)", filter:"blur(70px)", pointerEvents:"none", animation:"float 10s ease-in-out infinite 3s" }} />
-
       <div style={{ background:"rgba(255,255,255,0.04)", borderRadius:28, padding:"36px 28px", maxWidth:380, width:"100%", border:"1px solid rgba(255,255,255,0.1)", backdropFilter:"blur(30px)", animation:"loginBoxIn 0.5s ease", display:"flex", flexDirection:"column", gap:14, position:"relative", zIndex:1 }}>
-        {/* Logo */}
         <div style={{ textAlign:"center", marginBottom:4 }}>
           <div style={{ width:64, height:64, background:"linear-gradient(135deg,rgba(74,222,128,0.2),rgba(16,185,129,0.1))", border:"1px solid rgba(74,222,128,0.3)", borderRadius:18, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, margin:"0 auto 12px", boxShadow:"0 8px 32px rgba(74,222,128,0.15)" }}>💰</div>
           <div style={{ fontSize:26, fontWeight:900, background:"linear-gradient(90deg,#4ade80,#f6c90e)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", letterSpacing:-1 }}>InvestBot</div>
           <p style={{ color:"rgba(255,255,255,0.4)", fontSize:12, marginTop:4 }}>Smart Investing • 1 Month Returns</p>
         </div>
-
-        {/* Tabs */}
         <div style={{ display:"flex", borderRadius:12, overflow:"hidden", border:"1px solid rgba(255,255,255,0.08)", background:"rgba(0,0,0,0.2)" }}>
           {["login","register"].map(m => (
             <button key={m} style={{ flex:1, padding:"11px 0", background: mode===m ? "rgba(74,222,128,0.15)" : "none", border:"none", color: mode===m ? "#4ade80" : "rgba(255,255,255,0.4)", fontWeight:700, fontSize:14, cursor:"pointer", transition:"all 0.2s" }} onClick={() => { setMode(m); setError(""); }}>
@@ -164,25 +153,19 @@ function AuthPage() {
             </button>
           ))}
         </div>
-
         {mode === "register" && (
           <input style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:12, padding:"13px 16px", color:"#fff", fontSize:14, outline:"none", width:"100%" }} placeholder="👤 Aapka Naam" value={name} onChange={e => setName(e.target.value)} />
         )}
         <input style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:12, padding:"13px 16px", color:"#fff", fontSize:14, outline:"none", width:"100%" }} placeholder="📧 Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <input style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:12, padding:"13px 16px", color:"#fff", fontSize:14, outline:"none", width:"100%" }} placeholder="🔒 Password (min 6)" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-
         {mode === "login" && (
           <button style={{ background:"none", border:"none", color:"rgba(74,222,128,0.7)", fontSize:12, cursor:"pointer", textAlign:"right", padding:0 }} onClick={handleForgotPassword}>Password bhool gaye?</button>
         )}
-
         {error && <div style={{ background: error.startsWith("✅") ? "rgba(74,222,128,0.1)" : "rgba(244,67,54,0.1)", border:`1px solid ${error.startsWith("✅") ? "rgba(74,222,128,0.3)" : "#f44336"}`, borderRadius:10, padding:"10px 14px", color: error.startsWith("✅") ? "#4ade80" : "#f87171", fontSize:13, textAlign:"center" }}>{error}</div>}
-
         <button style={{ padding:"14px 0", borderRadius:13, border:"none", background:"linear-gradient(135deg,#22c55e,#16a34a)", color:"#fff", fontWeight:800, fontSize:15, cursor:"pointer", opacity: loading ? 0.7 : 1, boxShadow:"0 4px 20px rgba(34,197,94,0.3)", position:"relative", overflow:"hidden" }} className="submit-btn" onClick={handleEmailAuth} disabled={loading}>
           {loading ? "⏳ Please wait..." : mode === "login" ? "🔑 Login" : "📝 Register"}
         </button>
-
         <div style={{ textAlign:"center", color:"rgba(255,255,255,0.25)", fontSize:12 }}>ya</div>
-
         <button style={{ padding:"12px 0", borderRadius:12, border:"1px solid rgba(255,255,255,0.1)", background:"rgba(255,255,255,0.05)", color:"#fff", fontWeight:700, fontSize:14, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8, opacity: loading ? 0.7 : 1 }} onClick={handleGoogle} disabled={loading}>
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style={{ width:20, height:20 }} /> Google se Login
         </button>
@@ -191,7 +174,6 @@ function AuthPage() {
   );
 }
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -227,13 +209,13 @@ export default function App() {
   }
 
   async function handleDeleteAccount() {
-    const sure = window.confirm("⚠️ Pakka account delete karna hai? Ye permanently delete ho jayega.");
+    const sure = window.confirm("⚠️ Pakka account delete karna hai?");
     if (!sure) return;
     try {
       await deleteUser(auth.currentUser);
     } catch (e) {
       if (e.code === "auth/requires-recent-login") {
-        alert("Security ke liye pehle logout karke dobara login karo, fir account delete karo.");
+        alert("Security ke liye pehle logout karke dobara login karo.");
       } else {
         alert("⚠️ Kuch galat hua: " + e.message);
       }
@@ -272,7 +254,6 @@ export default function App() {
     setWLoading(false);
   }
 
-  // NAV
   const navItems = [
     { id:"home", icon:"🏠", label:"Home" },
     { id:"withdraw", icon:"💸", label:"Withdraw" },
@@ -282,13 +263,10 @@ export default function App() {
   return (
     <div style={{ minHeight:"100vh", background:"#060d0a", color:"#fff", position:"relative", overflow:"hidden", paddingBottom:40 }}>
       <style>{cssAnim}</style>
-
-      {/* BG Orbs */}
       <div style={{ position:"fixed", top:-100, left:-80, width:350, height:350, borderRadius:"50%", background:"rgba(34,197,94,0.08)", filter:"blur(80px)", pointerEvents:"none", animation:"float 8s ease-in-out infinite" }} />
       <div style={{ position:"fixed", bottom:0, right:-60, width:280, height:280, borderRadius:"50%", background:"rgba(16,185,129,0.06)", filter:"blur(70px)", pointerEvents:"none", animation:"float 10s ease-in-out infinite 3s" }} />
       <div style={{ position:"fixed", top:"45%", left:"30%", width:200, height:200, borderRadius:"50%", background:"rgba(251,191,36,0.04)", filter:"blur(70px)", pointerEvents:"none", animation:"float 12s ease-in-out infinite 5s" }} />
 
-      {/* NAVBAR */}
       <div style={{ display:"flex", background:"rgba(0,0,0,0.6)", backdropFilter:"blur(30px)", borderBottom:"1px solid rgba(255,255,255,0.05)", position:"sticky", top:0, zIndex:100 }}>
         {navItems.map(n => (
           <button key={n.id} className="nav-btn" style={{ flex:1, padding:"12px 0", background:"none", border:"none", color: page===n.id ? "#4ade80" : "rgba(255,255,255,0.4)", fontWeight:700, fontSize:11, cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:3, borderBottom: page===n.id ? "2px solid #4ade80" : "2px solid transparent", transition:"all 0.2s" }} onClick={() => setPage(n.id)}>
@@ -301,17 +279,14 @@ export default function App() {
         </button>
       </div>
 
-      {/* USER BADGE */}
       <div style={{ display:"flex", justifyContent:"center", padding:"12px 0 0" }}>
         <div style={{ display:"flex", alignItems:"center", gap:6, background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:50, padding:"5px 14px", fontSize:11, color:"rgba(255,255,255,0.4)" }}>
           👋 <span style={{ color:"#4ade80", fontWeight:600 }}>{user.displayName || user.email}</span>
         </div>
       </div>
 
-      {/* ═══════════════ HOME PAGE ═══════════════ */}
       {page === "home" && (
         <div style={{ animation:"fadeUp 0.4s ease" }}>
-          {/* Hero */}
           <div style={{ textAlign:"center", padding:"32px 24px 20px" }}>
             <div style={{ width:72, height:72, background:"linear-gradient(135deg,rgba(74,222,128,0.2),rgba(246,201,14,0.1))", border:"1px solid rgba(74,222,128,0.25)", borderRadius:20, display:"flex", alignItems:"center", justifyContent:"center", fontSize:32, margin:"0 auto 16px", boxShadow:"0 8px 32px rgba(74,222,128,0.12)" }}>💰</div>
             <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(74,222,128,0.6)", marginBottom:8 }}>InvestBot</div>
@@ -320,8 +295,6 @@ export default function App() {
             </h1>
             <p style={{ color:"rgba(255,255,255,0.4)", fontSize:14, lineHeight:1.5 }}>Invest today, double your money in 1 month.</p>
           </div>
-
-          {/* Stats */}
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, padding:"0 20px 24px" }}>
             {[["500+","Investors","#4ade80"],["98%","Success","#f6c90e"],["1 Mo","Returns","#60a5fa"]].map(([val,lbl,clr]) => (
               <div key={lbl} style={{ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:16, padding:"14px 8px", textAlign:"center" }}>
@@ -330,8 +303,12 @@ export default function App() {
               </div>
             ))}
           </div>
-
-          {/* Plans */}
           <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:"rgba(255,255,255,0.25)", padding:"0 20px 12px" }}>💼 Investment Plans</div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, padding:"0 16px", maxWidth:480, margin:"0 auto" }}>
-    
+            {plans.map((plan) => (
+              <div key={plan.id} className="plan-card-hover" style={{ background:"rgba(255,255,255,0.03)", borderRadius:18, padding:"18px 14px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, border:"1px solid rgba(255,255,255,0.07)", borderTop:`3px solid ${plan.color}`, cursor:"pointer" }}>
+                <div style={{ fontSize:30 }}>{plan.icon}</div>
+                <div style={{ fontSize:15, fontWeight:800, color:"#fff" }}>{plan.label}</div>
+                <div style={{ fontSize:10, color:"rgba(255,255,255,0.35)", background:"rgba(255,255,255,0.06)", borderRadius:20, padding:"2px 10px" }}>1 Month Plan</div>
+                <div style={{ display:"flex", alignItems:"center", gap:8, marginTop:6 }}>
+                  <div style={{ textAl
